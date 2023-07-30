@@ -145,11 +145,86 @@ PS D:\Home_Works\CS_HW_7> dotnet run
 Значение ячейки [2,2] равно 9
 */
 
-/*Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+/*Задача 3. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 
 Например, задан массив:
 1 4 7 2
 5 9 2 3
 8 4 2 4
 Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+*/
+
+/* Решение 3
+int InputInteNum(string message) //ввод целочисленных чисел
+{
+    Console.Write(message + " ");
+    return Convert.ToInt32(Console.ReadLine());
+}
+
+int[,] CreateArray2D (int Length, int Height) //ввод двумерного массива
+{
+    int[,] Array2D = new int[Height,Length];
+    for (int i=0; i < Height; i++)
+    {
+        for (int j=0; j<Length; j++)
+        {
+            Array2D[i,j] = InputInteNum("Введите значение массива с индексом [" + i + "," + j + "]");
+        }
+    }
+    return Array2D;
+}
+
+double[] ArarithmeticMeanArray (int[,] Array2D)
+{
+    Console.Write(Array2D.GetLength(0));
+    Console.Write(Array2D.GetLength(1));
+    double[] Array1D = new double[Array2D.GetLength(1)];
+    for (int i=0; i < Array2D.GetLength(1); i++) // Перебираем столбцы
+    {
+        double NumSum = 0;
+        for (int j=0; j<Array2D.GetLength(0); j++) // Перебираем строки
+        {
+            NumSum += Array2D[j,i];
+        }
+        Array1D[i] =  Math.Round(NumSum/Array2D.GetLength(0),1,MidpointRounding.ToZero);
+    }
+    return Array1D;
+}
+
+void PrintArrayAndResult(double[] Array1D)
+{
+    for(int i=0; i < Array1D.Length; i++)
+    {
+        Console.Write("Среднее по столбцу " + i + " составляет " + Array1D[i]);
+        Console.Write(Environment.NewLine);
+    }
+}
+
+int Height = InputInteNum("Введите количество строк в массиве");
+int Length = InputInteNum("Введите количество столбцов в массиве");
+int[,] Array2D = CreateArray2D(Length,Height);
+double[] ArarithmeticMean = ArarithmeticMeanArray(Array2D);
+PrintArrayAndResult(ArarithmeticMean);
+*/
+
+/* Тест 3
+PS D:\Home_Works\CS_HW_7> dotnet run
+Введите количество строк в массиве 3
+Введите количество столбцов в массиве 4
+Введите значение массива с индексом [0,0] 1
+Введите значение массива с индексом [0,1] 4
+Введите значение массива с индексом [0,2] 7
+Введите значение массива с индексом [0,3] 2
+Введите значение массива с индексом [1,0] 5
+Введите значение массива с индексом [1,1] 9
+Введите значение массива с индексом [1,2] 2
+Введите значение массива с индексом [1,3] 3
+Введите значение массива с индексом [2,0] 8
+Введите значение массива с индексом [2,1] 4
+Введите значение массива с индексом [2,2] 2
+Введите значение массива с индексом [2,3] 4
+34Среднее по столбцу 0 составляет 4,6
+Среднее по столбцу 1 составляет 5,6
+Среднее по столбцу 2 составляет 3,6
+Среднее по столбцу 3 составляет 3
 */
